@@ -1,0 +1,315 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Title</title>
+    <link rel="stylesheet" href="~/css/Principal.css">
+    <link rel="stylesheet" href="https://app.korra.ai/assets/pdfjs/web/viewer.css" />
+    <link rel="resource" type="application/l10n" href="https://app.korra.ai/assets/pdfjs/web/locale/locale.properties" />
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Include DevExtreme -->
+    <script src="https://cdn3.devexpress.com/jslib/21.1.5/js/dx.all.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700,900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdn3.devexpress.com/jslib/21.1.5/css/dx.light.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="~/js/Principal.js"></script>
+</head>
+<body>
+    <div style="width:100%; margin-bottom: 15px;">
+        <a>
+            <img src="https://mineriaencolombia.anm.gov.co/sites/default/files/inline-images/logos-header_Mesa-de-trabajo-1-copia.png" alt="Logo" style="width: 45%;">
+        </a>
+        <a>
+            <img src="https://www.adres.gov.co/PublishingImages/Header%20Logos/logo-adres.svg" alt="Logo" style="width: 25%;margin-left: 24%;">
+        </a>
+    </div>
+    <div style="width: 100%;border-top: solid 0.5px #009C9A;"></div>
+    <section>
+
+            <h3>Sobre nosotros</h3>
+            <p class="section-lead">
+                La Administradora de los Recursos del Sistema General de Seguridad Social en Salud (ADRES) es una entidad pública, adscrita al Ministerio de Salud y Protección Social, creada para gestionar y administrar los recursos financieros del sistema de salud colombiano a través del recaudo, el reconocimiento y giro de los mismos con el propósito de soportar la prestación de los servicios de salud a los habitantes del territorio nacional, contribuyendo a la transparencia y sostenibilidad financiera y  generando seguridad, confianza y certidumbre a los grupos de valor e interés.
+            </p>
+
+        
+        <div class="accordion" id="accordionExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                       Gestiona acá las unidades de servicios.
+                    </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                    <div style=" width: 80%; margin: auto;" class="accordion-body">
+                        <div id="gridContainer"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Gestiona acá las proveedores de servicios.
+                    </button>
+                </h2>
+                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                    <div style=" width: 80%; margin: auto;" class="accordion-body">
+                        <div id="gridContainer2"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Gestiona acá las requerimientos pendientes.
+                    </button>
+                </h2>
+                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <div id="gridContainer3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="services-grid">
+            <div class="service service1">
+                <i class="ti-bar-chart"></i>
+                <h4>Añadir Requerimiento</h4>
+                <p>Añade aquí tu nuevo requerimiento </p>
+                <a onclick="modalReqMed()" class="cta">Click <span class="ti-angle-right"></a>
+            </div>
+            <div class="service service2">
+                <i class="ti-light-bulb"></i>
+                <h4>Añadir unidad de servicio</h4>
+                <p>Añade aquí una nuevo unidad de servicio</p>
+                <a onclick="modalUni()" class="cta">Clickme<span class="ti-angle-right"></a>
+            </div>
+            <div class="service service3">
+                <i class="ti-money"></i>
+                <h4>Añadir nuevo proveedor</h4>
+                <p>Añade aquí un nuevo proveedor</p>
+                <a onclick="modalprov()" class="cta">Clickme <span class="ti-angle-right"></span></a>
+            </div>
+        </div>
+    </section>
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Editar Unidad</h5>
+                    <button type="button" onclick="cerrar()" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="editForm">
+                        <div class="form-group">
+                            <label for="nombre">Id Unidad</label>
+                            <input type="text" class="form-control" disabled id="nombre" name="nombre">
+                        </div>
+                        <div class="form-group">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" class="form-control"  id="nombre2" name="nombre">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="cerrar()" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="saveChanges" onclick="guardarEdit()">Guardar cambios</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @* modal proveedor *@
+    <div class="modal fade" id="editModal2" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Editar Proveedor</h5>
+                    <button type="button" onclick="cerrar()" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="editForm">
+                        <div class="form-group">
+                            <label for="nombre">Id Unidad</label>
+                            <input type="text" class="form-control" disabled id="nombre22" name="nombre">
+                        </div>
+                        <div class="form-group">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" class="form-control" id="nombre222" name="nombre">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" onclick="cerrar()" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="saveChanges" onclick="guardarEdit2()">Guardar cambios</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @* modal requerimientos *@
+    <div class="modal fade" id="editModal3" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Editar Requerimiento</h5>
+                    <button type="button" onclick="cerrar()" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="editForm">
+                        <div class="form-group">
+                            <label for="nombre">Cedula</label>
+                            <input type="text" class="form-control" disabled id="Cedula" name="nombre">
+                        </div>
+                        <div class="form-group">
+                            <label for="nombre">Cantidad</label>
+                            <input type="text" class="form-control" id="Cantidad" name="nombre">
+                        </div>
+                        <div class="form-group">
+                            <label for="nombre">Documentacion</label>
+                            <input type="text" class="form-control" id="Documentacion" name="nombre">
+                        </div>
+                        <div class="form-group">
+                            <label for="nombre">ValorUnitario</label>
+                            <input type="text" class="form-control" id="ValorUnitario" name="nombre">
+                        </div>
+                        <div class="form-group">
+                            <label for="nombre">ValorTotal</label>
+                            <input type="text" class="form-control" id="ValorTotal" name="nombre">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" onclick="cerrar()" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="saveChanges" onclick="guardarEdit3()">Guardar cambios</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @* modal añadir req *@
+    <div class="modal fade" id="modalReqMed" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Añadir requerimiento medico</h5>
+                    <button type="button" onclick="cerrar()" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="editForm">
+                        <div class="form-group">
+                            <label for="nombre">Cedula</label>
+                            <input type="text" class="form-control" id="xxx" name="nombre">
+                        </div>
+                        <div class="form-group">
+                            <label for="nombre">Presupuesto</label>
+                            <input type="text" class="form-control" id="Presupuesto" name="nombre">
+                        </div>
+                        <div class="form-group">
+                            <label for="nombre">IdUnidad</label>
+                            <input type="text" class="form-control" id="IdUnidad" name="nombre">
+                        </div>
+                        <div class="form-group">
+                            <label for="nombre">Tipo</label>
+                            <input type="text" class="form-control" id="Tipo" name="nombre">
+                        </div>
+                        <div class="form-group">
+                            <label for="nombre">Cantidad</label>
+                            <input type="text" class="form-control" id="lll" name="nombre">
+                        </div>                      
+                        <div class="form-group">
+                            <label for="nombre">ValorUnitario</label>
+                            <input type="text" class="form-control" id="Valu" name="nombre">
+                        </div>
+                        <div class="form-group">
+                            <label for="nombre">ValorTotal</label>
+                            <input type="text" class="form-control" id="Valt" name="nombre">
+                        </div>
+                        <div class="form-group">
+                            <label for="nombre">FechaAd</label>
+                            <input type="date" class="form-control" id="FechaAd" name="nombre">
+                        </div>
+                        <div class="form-group">
+                            <label for="nombre">IdProveedor</label>
+                            <input type="text" class="form-control" id="idp" name="nombre">
+                        </div>
+                        <div class="form-group">
+                            <label for="nombre">Documentacion</label>
+                            <input type="text" class="form-control" id="doc" name="nombre">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" onclick="cerrar()" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="saveChanges" onclick="Añadir()">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @* modal añadir PROVEEDORES *@
+    <div class="modal fade" id="modalprovv" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Añadir proveedores</h5>
+                    <button type="button" onclick="cerrar()" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="editForm">
+                        <div class="form-group">
+                            <label for="nombre">IdProveedor</label>
+                            <input type="text" class="form-control" id="ppp" name="nombre">
+                        </div>
+                        <div class="form-group">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" class="form-control" id="name" name="nombre">
+                        </div>                      
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" onclick="cerrar()" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="saveChanges" onclick="AñadirProv()">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @* modal añadir unidades *@
+    <div class="modal fade" id="modalunid" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Añadir unidades de servicio</h5>
+                    <button type="button" class="close" onclick="cerrar()" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="editForm">
+                        <div class="form-group">
+                            <label for="nombre">IdUnidad</label>
+                            <input type="text" class="form-control" id="IU" name="nombre">
+                        </div>
+                        <div class="form-group">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" class="form-control" id="name2" name="nombre">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" onclick="cerrar()" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="saveChanges" onclick="AñadirUn()">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
